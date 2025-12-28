@@ -1,0 +1,12 @@
+## Interface: 30100
+## Title: ImprovedMerchant
+## Author: Macniel
+## Notes: Improves the Merchant Frame
+## Version: 3.6x5
+## SavedVariables: AUTOREPAIR
+localization.lua
+Item.xml
+ImprovedMerchant.lua
+ImprovedMerchant.xml
+Item.lua
+filterDropDown.lua

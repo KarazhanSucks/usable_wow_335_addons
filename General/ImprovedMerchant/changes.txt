@@ -1,0 +1,31 @@
+Code Changes in v3.6x5
+- ImprovedMerchant.lua:149 ---
+insert	"button:SetFrameLevel(ImprovedMerchantScrollChild:GetFrameLevel() + 1)"
+reason	To ensure that those itembuttons are always in front of the scrollchildframe
+
+Code Changes in v3.6x4
+- ImprovedMerchant.lua:129-130 ---
+insert	"elseif IsNotFiltered == true and filterOption and filterOption == ImprovedMerchant_NOTHING then
+							IsNotFiltered = true"
+reason 	To reflect the added filter-constant nothing (enum value 0)
+- ImprovedMerchant.lua:2 ---
+insert	local ImprovedMerchant_NOTHING = 0
+reason	There was a bug that prevents the list to populate when its filter was set to nothing
+- ImprovedMerchant.lua:220 ---
+insert	UIDropDownMenu_SetSelectedValue(ImprovedMerchantSortList, ImprovedMerchant_NOTHING)
+reason	Preselect visually the nothing filter in the dropdown list
+- filterDropDown.lua:2 ---
+insert	local ImprovedMerchant_NOTHING = 0
+reason	look at the second changepoint
+- filterDropDown.lua:13 ---
+changed	info.value = nil
+to		info.value = ImprovedMerchant_NOTHING
+reason	whenever a dropdown item value is set to nil the .text will automatically used instead
+
+Code Changes in v3.6x3
+- ImprovedMerchant.lua:122-124 ---
+append 	"and not(ImprovedMerchant_SearchTooltip(ITEM_SPELL_KNOWN,iter))" 
+to		"IsNotFiltered = (isUsable ..."
+reason	As the flag IsUsable does not be set if a Recipe is already known or not
+- ImprovedMerchant.lua:120-121 ---
+changed comment

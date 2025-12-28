@@ -1,0 +1,522 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
+	<Script file="localization.lua"/>
+	<Script file="AutoDestroy.lua"/>
+
+	<GameTooltip name="AutoDestroyTooltip" frameStrata="TOOLTIP" hidden="true" inherits="GameTooltipTemplate"> 
+		<Scripts> 
+			<OnLoad> 
+				self:SetOwner(WorldFrame, "ANCHOR_NONE"); 
+			</OnLoad> 
+		</Scripts> 
+	</GameTooltip>
+
+	<Frame name="AutoDestroyFrame" frameStrata="LOW" hidden="true" parent="UIParent">
+		<Scripts>
+			<OnLoad>
+				AutoDestroyFrame_OnLoad(self);
+			</OnLoad>
+			<OnEvent>
+				AutoDestroyFrame_OnEvent(event, arg1);
+			</OnEvent>
+		</Scripts>
+	</Frame>
+
+	<Frame name="AutoDestroyOptionsFrame" toplevel="true" frameStrata="MEDIUM" hidden="true" parent="UIParent">
+		<Size>
+			<AbsDimension x="400" y="400"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11"/>
+				<Size>
+					<AbsDimension x="128" y="17"/>
+				</Size>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32"/>
+			</EdgeSize>
+		</Backdrop>
+
+		<Layers>
+			<Layer level="ARTWORK">
+
+				<!-- Frame header background texture -->
+				<Texture file="Interface\DialogFrame\UI-DialogBox-Header">
+					<Size>
+						<AbsDimension x="225" y="64"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="12"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				
+				<!-- Frame header label -->
+				<FontString inherits="GameFontNormal" text="Auto Destroy">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-3"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+			</Layer>
+		</Layers>
+
+		<Frames>
+
+			<!-- Enable/Disable -->
+			<CheckButton name="AutoDestroyEnableCheckButton" inherits="UICheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnShow>
+						if (AutoDestroyEnable) then
+							self:SetChecked(1);
+						else
+							self:SetChecked(0);
+						end
+						getglobal(self:GetName().."Text"):SetText(AUTODESTROY_ENABLE);
+					</OnShow>
+					<OnClick>
+						if (self:GetChecked()) then
+							AutoDestroyEnable = true;
+							PlaySound("igMainMenuOptionCheckBoxOff");
+						else
+							AutoDestroyEnable = false;
+							PlaySound("igMainMenuOptionCheckBoxOn");
+						end
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_LEFT");
+						GameTooltip:SetText(AUTODESTROY_TOOLTIP1, nil, nil, nil, nil, 1);
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</CheckButton>
+
+			<!-- Zone Edit Box -->
+			<EditBox name="AutoDestroyZoneEditBox" autoFocus="false" inherits="InputBoxTemplate">
+				<Size>
+					<AbsDimension x="150" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="45" y="-75"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString inherits="GameFontNormalSmall" text="LFG_TYPE_ZONE">
+							<Anchors>
+								<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
+									<Offset>
+										<AbsDimension x="0" y="3"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnShow>
+						self:SetText(AutoDestroyCFG.zone);
+					</OnShow>
+					<OnHide>
+						AutoDestroyCFG.zone = self:GetText();
+					</OnHide>
+					<OnTabPressed>
+						-- :SetFocus();
+					</OnTabPressed>
+					<OnEnterPressed>
+						AutoDestroyCFG.zone = self:GetText();
+						self:ClearFocus();
+					</OnEnterPressed>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT");
+						GameTooltip:SetText(AUTODESTROY_TOOLTIP2, nil, nil, nil, nil, 1);
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</EditBox>
+
+			<!-- Set to Current Button -->
+			<Button name="AutoDestroyOptionsFrameSetButton" inherits="GameMenuButtonTemplate" text="AUTODESTROY_SETZONEBUTTON">
+				<Size>
+					<AbsDimension x="110" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="AutoDestroyZoneEditBox" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						AutoDestroyZoneEditBox:SetText(GetZoneText());
+						AutoDestroyCFG.zone = GetZoneText();
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<!-- Level threshold Editbox -->
+			<EditBox name="AutoDestroyLevelEditBox" letters="2" numeric="true" autoFocus="false" inherits="InputBoxTemplate">
+				<Size>
+					<AbsDimension x="30" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AutoDestroyZoneEditBox" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString inherits="GameFontNormalSmall" text="LEVEL">
+							<Anchors>
+								<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
+									<Offset>
+										<AbsDimension x="0" y="3"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnShow>
+						self:SetText(AutoDestroyCFG.minlevel);
+					</OnShow>
+					<OnHide>
+						if (self:GetText() == "") then
+							AutoDestroyCFG.minlevel = 0;
+						else
+							AutoDestroyCFG.minlevel = tonumber(self:GetText());
+						end
+					</OnHide>
+					<OnTabPressed>
+						-- :SetFocus();
+					</OnTabPressed>
+					<OnEnterPressed>
+						if (self:GetText() == "") then
+							AutoDestroyCFG.minlevel = 0;
+						else
+							AutoDestroyCFG.minlevel = tonumber(self:GetText());
+						end
+						self:ClearFocus();
+					</OnEnterPressed>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT");
+						GameTooltip:SetText(AUTODESTROY_TOOLTIP3, nil, nil, nil, nil, 1);
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</EditBox>
+
+			<!-- weapons slider -->
+			<Slider name="AutoDestroyWeaponsSlider" inherits="OptionsSliderTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-30" y="-150"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+
+				<Layers>
+					<Layer level="ARTWORK">
+						<!-- value label -->
+						<FontString name="$parentValueText" inherits="ChatFontNormal" text="">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-15"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+
+				<Scripts>
+					<OnShow>
+						self:SetMinMaxValues(-1, 3);
+						self:SetValueStep(1);
+						self:SetValue(AutoDestroyCFG.weapons);
+						getglobal(self:GetName().."Text"):SetText(AUTODESTROY_WEAPONTHRESHOLD);
+						getglobal(self:GetName().."Low"):SetText("");
+						getglobal(self:GetName().."High"):SetText("");
+					</OnShow>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_LEFT");
+						GameTooltip:SetText(AUTODESTROY_TOOLTIP4, nil, nil, nil, nil, 1);
+					</OnEnter>
+					<OnValueChanged>
+						AutoDestroyCFG.weapons = self:GetValue();
+						if ( AutoDestroyCFG.weapons == -1 ) then
+							getglobal(self:GetName().."ValueText"):SetText(AUTODESTROY_COLORS[0]..AUTODESTROY_COLORS_TEXT[0].."|r");
+						else
+							getglobal(self:GetName().."ValueText"):SetText(	AUTODESTROY_COLORS[AutoDestroyCFG.weapons]..
+																			AUTODESTROY_COLORS_TEXT[(AutoDestroyCFG.weapons + 1)]..
+																			"|r"
+																			);
+						end
+					</OnValueChanged>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Slider>
+
+			<!-- armor slider -->
+			<Slider name="AutoDestroyArmorSlider" inherits="OptionsSliderTemplate">
+				<Anchors>
+					<Anchor point="TOP" relativeTo="AutoDestroyWeaponsSlider" relativePoint="BOTTOM">
+						<Offset>
+							<AbsDimension x="0" y="-40"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+
+				<Layers>
+					<Layer level="ARTWORK">
+						<!-- value label -->
+						<FontString name="$parentValueText" inherits="ChatFontNormal" text="">
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-15"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+
+				<Scripts>
+					<OnShow>
+						self:SetMinMaxValues(-1, 3);
+						self:SetValueStep(1);
+						self:SetValue(AutoDestroyCFG.armor);
+						getglobal(self:GetName().."Text"):SetText(AUTODESTROY_ARMORTHRESHOLD);
+						getglobal(self:GetName().."Low"):SetText("");
+						getglobal(self:GetName().."High"):SetText("");
+					</OnShow>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_LEFT");
+						GameTooltip:SetText(AUTODESTROY_TOOLTIP5, nil, nil, nil, nil, 1);
+					</OnEnter>
+					<OnValueChanged>
+						AutoDestroyCFG.armor = self:GetValue();
+						if (AutoDestroyCFG.armor == -1) then
+							getglobal(self:GetName().."ValueText"):SetText(AUTODESTROY_COLORS[0]..AUTODESTROY_COLORS_TEXT[0].."|r");
+						else
+							getglobal(self:GetName().."ValueText"):SetText(	AUTODESTROY_COLORS[AutoDestroyCFG.armor]..
+																			AUTODESTROY_COLORS_TEXT[(AutoDestroyCFG.armor + 1)]..
+																			"|r"
+																			);
+						end
+					</OnValueChanged>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Slider>
+
+			<!-- Destroy List -->
+			<ScrollFrame name="AutoDestroyListEditFrameScrollFrame" inherits="UIPanelScrollFrameTemplate">
+				<Size>
+					<AbsDimension x="150" y="170"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="35" y="-170"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<ScrollChild>
+
+					<EditBox name="AutoDestroyListEditFrameEditBox" multiLine="true" autoFocus="false">
+						<Size>
+							<AbsDimension x="286" y="130"/>
+						</Size>
+						<Scripts>
+							<OnTextChanged>
+								local scrollBar = getglobal(self:GetParent():GetName().."ScrollBar")
+								self:GetParent():UpdateScrollChildRect();
+								local min;
+								local max;
+								min, max = scrollBar:GetMinMaxValues();
+								if ( max > 0 and (self.max ~= max) ) then
+									self.max = max;
+									scrollBar:SetValue(max);
+								end
+							</OnTextChanged>
+							<OnEscapePressed>
+								self:ClearFocus();
+							</OnEscapePressed>
+							<OnShow>
+								self:SetText(AutoDestroyCFG.list);
+							</OnShow>
+							<OnHide>
+								AutoDestroyCFG.list = self:GetText();
+								AutoDestroyGetList();
+							</OnHide>
+							<OnEnter>
+								GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT");
+								GameTooltip:SetText(AUTODESTROY_TOOLTIP6, nil, nil, nil, nil, 1);
+							</OnEnter>
+							<OnLeave>
+								GameTooltip:Hide();
+							</OnLeave>
+						</Scripts>
+						<FontString inherits="GameFontHighlightSmall"/>
+					</EditBox>
+				</ScrollChild>
+			</ScrollFrame>
+
+			<Button name="AutoDestroyListEditFrameTextButton">
+				<Size>
+					<AbsDimension x="286" y="130"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="AutoDestroyListEditFrameEditBox"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						AutoDestroyListEditFrameEditBox:SetFocus();
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Frame name="AutoDestroyListEditFrameTextBackground">
+				<Size>
+					<AbsDimension x="186" y="180"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="26" y="-165"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="16"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="16"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="5" right="5" top="5" bottom="5"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Scripts>
+					<OnLoad>
+						self:SetBackdropBorderColor(TOOLTIP_DEFAULT_COLOR.r, TOOLTIP_DEFAULT_COLOR.g, TOOLTIP_DEFAULT_COLOR.b);
+						self:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+
+			<Button name="AutoDestroyListLabel" hidden="false">
+				<Size>
+					<AbsDimension x="100" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" relativeTo="AutoDestroyListEditFrameTextBackground">
+						<Offset>
+							<AbsDimension x="6" y="-3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="$parentText" inherits="GameFontNormalSmall" justifyH="RIGHT" text="AUTODESTROY_ALWAYSDESTROYLIST">
+							<Anchors>
+								<Anchor point="RIGHT">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_LEFT");
+						GameTooltip:SetText(AUTODESTROY_TOOLTIP6, nil, nil, nil, nil, 1);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();						
+					</OnLeave>
+					<OnLoad>
+						self.text = "";
+					</OnLoad>
+				</Scripts>
+			</Button>
+
+			<!-- Close Button -->
+			<Button name="AutoDestroyOptionsFrameCloseButton" inherits="GameMenuButtonTemplate" text="CLOSE">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="BOTTOM">
+						<Offset>
+							<AbsDimension x="0" y="30"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PlaySound("igMainMenuClose");
+						AutoDestroyOptionsFrame:Hide();
+					</OnClick>
+				</Scripts>
+			</Button>
+
+		</Frames>
+
+		<Scripts>
+			<OnLoad>
+				hooksecurefunc("ContainerFrameItemButton_OnModifiedClick", AutoDestroy_newPickupContainerItem);
+			</OnLoad>
+			<OnShow>
+				--AutoDestroy_oldPickupContainerItem = PickupContainerItem;
+				--PickupContainerItem = AutoDestroy_newPickupContainerItem;
+				PlaySound("igMainMenuOpen");
+			</OnShow>
+			<OnHide>
+				--PickupContainerItem = AutoDestroy_oldPickupContainerItem;
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+</Ui>

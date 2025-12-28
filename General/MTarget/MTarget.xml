@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+<Script file="MTarget.lua"/>
+<Script file="MTarget_Broadcast.lua"/>
+<Script file="MTarget_Config.lua"/>
+<Script file="MTarget_Console.lua"/>
+<Script file="MTarget_Macro.lua"/>
+<Script file="MTarget_Menu.lua"/>
+<Script file="MTarget_PopupMenu.lua"/>
+<Script file="MTarget_RaidIcons.lua"/>
+</Ui>

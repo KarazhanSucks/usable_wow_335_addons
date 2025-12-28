@@ -1,0 +1,10 @@
+## Interface: 30300
+## Title: |cff267EFFElphie's Interrupt Say|r
+## Notes: You interrupted something! /iit
+## Author: Elphie [Matanya of Arthas]
+## Version: 3.3.3
+## Credits: Lythelia
+## E-mail: krys.the.ish@gmail.com
+## SavedVariables: InterruptSayDB
+
+InterruptSay.lua

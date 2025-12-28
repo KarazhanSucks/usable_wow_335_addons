@@ -1,0 +1,64 @@
+------------------------------------------------------------------------
+r60 | gameldar | 2010-09-16 22:35:31 +0000 (Thu, 16 Sep 2010) | 1 line
+Changed paths:
+   A /tags/v2.1.7 (from /trunk:59)
+
+MTarget: 2.1.7 release 
+------------------------------------------------------------------------
+r59 | gameldar | 2010-09-16 22:34:40 +0000 (Thu, 16 Sep 2010) | 1 line
+Changed paths:
+   M /trunk/MTarget.lua
+   M /trunk/MTarget.toc
+   M /trunk/MTarget_Menu.lua
+   M /trunk/MTarget_PopupMenu.lua
+
+MTarget:fixing up a merge failure
+------------------------------------------------------------------------
+r57 | gameldar | 2010-09-16 06:22:37 +0000 (Thu, 16 Sep 2010) | 3 lines
+Changed paths:
+   M /trunk/MTarget.lua
+   M /trunk/MTarget.toc
+   M /trunk/MTarget_Macro.lua
+
+MTarget: Change the output on failure to write if in combat to be a debug message - otherwise this'll be spammed in combat if you are using the raid icons support.
+
+
+------------------------------------------------------------------------
+r55 | gameldar | 2010-09-15 07:34:34 +0000 (Wed, 15 Sep 2010) | 3 lines
+Changed paths:
+   M /trunk/MTarget.lua
+   M /trunk/MTarget.toc
+   M /trunk/MTarget_Menu.lua
+   M /trunk/MTarget_PopupMenu.lua
+
+
+MTarget: Fix up the handling of the deprecated global 'this' - that is finally broken in Cataclysm.
+
+------------------------------------------------------------------------
+r53 | gameldar | 2010-09-09 07:51:43 +0000 (Thu, 09 Sep 2010) | 2 lines
+Changed paths:
+   M /trunk
+
+MTarget: Added the appropriate svn:externals to allow correct library checkout for development.
+
+------------------------------------------------------------------------
+r49 | gameldar | 2010-09-07 15:35:36 +0000 (Tue, 07 Sep 2010) | 1 line
+Changed paths:
+   M /trunk/MTarget.lua
+   M /trunk/MTarget.toc
+
+MTarget:update version
+------------------------------------------------------------------------
+r48 | gameldar | 2010-09-07 15:34:20 +0000 (Tue, 07 Sep 2010) | 1 line
+Changed paths:
+   M /trunk/.pkgmeta
+   M /trunk/embeds.xml
+
+MTarget:Fix up the dependencies so it can run with a separate Ace3 lib installed.
+------------------------------------------------------------------------
+r47 | gameldar | 2010-09-07 14:49:41 +0000 (Tue, 07 Sep 2010) | 1 line
+Changed paths:
+   M /trunk/embeds.xml
+
+MTarget:fix up the order in the embeds.xml so that the libdatabroker is loaded before libdbicon as that is the dependency order.
+------------------------------------------------------------------------

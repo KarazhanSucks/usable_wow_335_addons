@@ -1,0 +1,8 @@
+## Interface: 30300
+## Title: Auto Destroy
+## Notes: Automatically destroy junk that is looted
+## Author: Torrid
+## SavedVariables: AutoDestroyCFG
+## Version: 1.08
+
+AutoDestroy.xml

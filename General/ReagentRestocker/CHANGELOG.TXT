@@ -1,0 +1,279 @@
+== v2.3.3 beta ==
+* Added UI info to "about" into.
+* Fixed Cataclysm bug due to API changes.
+
+== v2.3.2 beta ==
+* Minor bugfixes.
+
+== v2.3.1 beta ==
+* Minor bugfixes.
+* Upgraded Ace to current version (r942)
+* Added Ace info so I know what RR's currently using.
+
+== v2.3.0 alpha ==
+* Minor tweak to "receipt."
+* Reworked global function calls, hopefully for a reduced memory footprint.
+* Beginnings of new UI - NOT FUNCTIONAL! Only available using a button from the old UI.
+
+== v2.2.5 ==
+* Automatic destroying of items fixed. WARNING: Destroyed items cannot be recovered. It should show a dialog box before destroying items.
+
+== v2.2.4 ==
+* More detailed sale report.
+* First attempt at automatic destroying of items - dialog box appears, and function tries to run, but for some reason it won't work.
+
+== v2.2.3 ==
+* Found new method of detecting whether a vendor is willing to buy an item - hopefully, this will fix a bug and enable a new feature in the future.
+* It's about time I used tooltips rather than relying on Ace3's status frame, which always has a bad habit of chopping off the text.
+
+== v2.2.2 ==
+* Attempted to fix bug where stuff wasn't being added to the exceptions list.
+* Added a bit of database cleanup code, should improve the loading performance for some people. You will need to install this update, load the game, quit the game normally (no crashes or force quits), then load the game again to benefit from this.
+
+== v2.2.1 ==
+* GO TOPEKA!
+* Swatted a bug. D.E.H.T.A. is angry.
+
+== v2.2.0 ==
+* Minor bug fixes.
+* Seems pretty stable, so make the middle number even.
+
+== v2.1.3 ==
+* Added sorting to item lists.
+* Two new APIs for other addon developers that want to communicate with Reagent Restocker:
+** ReagentRestocker:getVersion()
+** ReagentRestocker:deleteItem(item)  < UI now uses this, so it should be hookable.
+* Except for the exceptions list, all lists now show the UI for the item when it is added to a list.
+* Clears UI when an item is deleted.
+* Added titles to the UI if the items when they are selected. Helps a bit when debugging as well.
+* The ArkInventory addon author is looking at adding support for Reagent Restocker!
+* Unintentional source of data corruption found and fixed.
+* A bunch of UI cleanup.
+
+== v2.1.2 ==
+* Fix 3.3.3.3.3.3.3 bugs.
+* Easier than I thought, actually. It was just trying to pull in some functions that it wasn't using anyways.
+
+== v2.1.1 ==
+* Attempt to fix a bug.
+
+== v2.1.0 ==
+* No news is good news. I'm pretty much assuming the "low reagent warning" bug is fixed now.
+* Fixed crash when quantity wasn't set.
+* New list: Exceptions. This lists prevents the automatic selling from selling certain items.
+* Some functions made available in a public API.
+* This was a pretty big change to the code (in order to make more lists possible), and a lot could be buggy, so I'm gonna increment the middle number in the version.
+
+== v2.0.10 ==
+* More tweaks to the low reagent warning. Note that it only warns when items become low while using them, it doesn't warn of low items when entering a city or anything like that.
+* I just got a big DUH moment - the warning was deeply nested in a "for" statement, making it conditional on things it shouldn't be conditional on! Fixed. Hopefully, this fixes 99% of the weirdness of the low reagent warning.
+
+== v2.0.9 ==
+* Fixed an unintended crash when dragging and dropping an item onto the text field. Probably in there as a previous experiment to add drag and drop?
+* As a result of fixing the bug, you can now drag and drop items on the text field to add them to the list. Note that it may not be reliable.
+* Added a bit of new debugging code - puts more information in crash messages.
+
+== v2.0.8 ==
+* Another attempt to fix low reagent warning.
+
+== v2.0.7 ==
+* Tried to fix reagent warning not appearing at all.
+* Disabled debugging (did I leave that on? oops!)
+
+Explanation of the bug I'm tracking down: It seems that when WoW first loads, the inventory will act as if there's nothing in it. Therefore, if I check for low reagents right away when RR loads, it will detect them as low and give the player a warning. In 2.0.6, I've been telling it to ignore them until a certain event happens which seems to tell me when the inventory is available again. Alas, the event I chose doesn't always happen, so I've added another event in an attempt to make the detection more reliable.
+
+Alas, there is no documented "correct" event to check for this, so it's largely a shot in the dark. I'm hoping this is the last I see of this bug, but no complete guarantees. Please report it if it happens again.
+
+== v2.0.6 ==
+* Fixed database bug that could cause crashes.
+* Fixed bug that inappropriately warned reagents were low after a loading screen.
+
+== v2.0.5 ==
+* Why yes, if I compare it to nil, I want to know if it's nil.
+* Get rid of some debugging messages that were just causing errors.
+* Added delay before checking for low items in an attempt to avoid a bug.
+
+== v2.0.4 ==
+* Fixed a bug where a debug message was being displayed inappropriately.
+* Added option to disable low reagent warnings.
+* Attempted to fix warning that something is low when it isn't.
+
+== v2.0.3 ==
+* Fixed a bug when loading the database.
+* Started some code for a new feature.
+
+== v2.0.2 ==
+* Added bug reporting link to About page.
+* Fixed bug where the merchant refused to take the item, but still counted as being sold, resulting in inaccurate selling profit.
+* Added warning when item drops below an amount set by the user. Compatible with Mik's Scrolling Battle Text.
+
+== v2.0.1 ==
+* Raid Roll detection improved.
+* Apparently, the old way of just detecting the slash command conflict stopped working. Thankfully, the Raid Roll author added a way to detect that it's been loaded.
+* Added "About" section.
+
+== v2.0.0 ==
+* Library and code cleanup - removed unneeded stuff, should make download smaller :).
+* 2.0 is released!
+* Waterfall is no more. Ace3 is now the primary driver of the UI.
+* Fixed bug where bank itself wasn't included when stocking to/from bank.
+
+== v1.9.11 beta ==
+* Turned off debug flag.
+* Various bug fixes
+* To prevent people with large lists from having an explosion of LDB items, it now defaults to only a single item.
+* LDB: Now loads icon for items when a new LDB object created, rather than loading the icon later - fixes bug with some plugins.
+* Added option to use text instead of labels - some LDB plugins don't support labels.
+* Closed all bugs. Unfortunately, one I wasn't able to reproduce :(. If it happens again, the workaround is to just visit the vendor again. Please record any errors - sometimes the error will appear in a chat message.
+* Start tracking Reagent Restocker version in database - may help if I want to change how the database works in the future.
+* If nothing major is reported, this is likely to be the last beta.
+
+== v1.9.10 beta ==
+* Fix UI bugs.
+* Well, as far as I know it's stable. Barring any new major bug reports, it'll go to stable, which will be released as 2.0.
+
+== v1.9.9 beta ==
+* Made sliders act more like they do in the 1.2.x code.
+* Fixed typing in the numbers in the sliders.
+* Erased some debug prints. Debug printing still turned on for the beta testing, though.
+
+== v1.9.8 beta ==
+* Fixed checkmarks not working. Placed something in the wrong argument for a function.
+
+== v1.9.7 beta ==
+* Fixed checkmarks not working. Hopefully this time they're really fixed.
+
+== v1.9.6 beta ==
+* Fixed checkmarks not working.
+
+== v1.9.5 beta ==
+* Yes, updates are rolling in rapidly . . .
+* More bug fixes. Testing on my main now.
+
+== v1.2.4 and v1.9.4 beta ==
+* Fixed loading bug when Ace3 is loaded and LDB is absent.
+* Minor bug fixes.
+
+== v1.9.3 beta ==
+* Major bug fix: Now loads database properly.
+* Now sliders go their full length.
+* UI tweaks.
+* Disappearing window fixed.
+* Other various minor bugfixes
+
+== v1.9.2 beta ==
+* Released as beta! Please test, please report bugs!
+* **Finally** got everything I wanted to get working, working.
+* Integrates with WoW's addons tab in the interface menu.
+* Updated toc to current patch version.
+* It's been a long, hard road, I hope it's worth it. Finally, I can get back to playing the game and fixing minor bugs.
+* I accept donations, go to the website and find the donate button.
+
+== v1.9.1 alpha ==
+* VERY EARLY ALPHA/BETA - VERY UNFINISHED AT THIS POINT!!
+* Various bug fixes, working on reducing name clashes.
+
+== v1.9.0 alpha ==
+* VERY EARLY ALPHA/BETA - VERY UNFINISHED AT THIS POINT!!
+* Moved to Ace3 libraries.
+* Known bug: Frame intended to be inside Blizzard's UI appears underneath it.
+
+== v1.2.3 ==
+* Fixed case where, when Raid Roll loaded after Reagent Restocker, it would wipe all three slash commands.
+* Not really Raid Roll's fault, it just appears that when you register slash commands as a group, overriding one wipes the others in the group. Solution was to register "/rr" separately.
+
+== v1.2.2 ==
+* Attempt to fix some icons not showing up.
+* Added option to use a single LDB object instead of one per item.
+
+== v1.2.1 ==
+* Detect Raid Roll, and do not override its slash command if it has set one.
+* Added /rrstock to the slash commands. Same as /rr.
+* Remember, you can always use /reagentrestocker to open reagent restocker.
+
+== v1.2.0 ==
+* Minor graphical adjustments.
+* No more crashes reported, only minor graphical complaints, so releasing as stable!
+
+== v1.1.8 beta ==
+* Waterfall was acting up, so I jailed it.
+* In other words, it runs in its own environment now and doesn't pollute the global namespace.
+* Hopefully this should be the final fix for incompatibilities with other addons.
+
+== v1.1.7 beta ==
+* If you come to a fork in the road, take it. Or, in this case, if you modify a library, fork it.
+
+== v1.1.6 beta ==
+* With a new day for a fresh set of eyes - a some "if" statements and "function" closures in my code were closing in weird places. May have been responsible for flaky behavior and performance issues. Fixed.
+
+== v1.1.5 beta ==
+* More LDB fixes.
+
+== v1.1.4 beta ==
+* Bug/performance fixes.
+
+== v1.1.3 beta ==
+* Minor UI and LDB bug fixes.
+
+== v1.1.2 beta ==
+* Fix Broker2FuBar compatibility.
+* Add some text to LDB feed.
+* Increase intensity of colors at user request.
+
+== v1.1.1 beta ==
+* LDB support added.
+* Increased visibility of resize handles.
+* Fixed a fix.
+
+== v1.1.0 beta ==
+
+* Give Cheeken credit in TOC.
+* Hopefully fix vendor discount bug.
+* Versioning set to be more Linux-like. This is still a beta release, so odd second number.
+* Drag and drop support now added! Easier, and more reliable since no dependency on the name.
+* Rquired modifications to the Waterfall library. Consider the library branched . . .
+* Wider area for longer description viewing. May adjust more in the future.
+* Formatting of news and changelog adjusted to be more Wiki-like.
+
+== v1.0 beta ==
+
+* Added MIT license to code.
+* (gonna publish to curse.com)
+* Added /rrbuy and /rrsell to add items to the sell and buy lists (thanks g3gg0).
+* Per the advice of rerunx5, replaced LibStub with Ace 3.0 LibStub.
+* Updated Waterfall library.
+* Updated Ace 2 libraries.
+* Updated TOC.
+
+== v0.9d ==
+
+* First change with new author (CobraA1).
+* Increased maximum shopping quantities; should allow players to fill some of the more specialized bags.
+* Changelog and news now included as text files in the addon.
+* Note that I have not updated the interface version yet - I want to make sure most of the known bugs are fixed first.
+
+== v0.9 ==
+
+* Improved interface (thanks to the excellent Waterfall library)
+* Added ability to turn overstocking on and off
+* Fixed problem finding items with hyphens (-) in them
+
+
+== v0.8 ==
+
+* This update will delete your settings, but it will also work with the 2.3.2 update
+* Improved bag-movement "AI"
+* Improved reporting
+* Cleaned things up a bit; should be less prone to bugs
+
+
+== v0.7 ==
+
+* Improved bank logic
+* Multiple bug fixes
+
+
+== v0.6 ==
+The Bad News: Due to a significant code rewrite, v0.6 will reset your settings. You will have to re-enter them.
+
+The Good News: Reagent Restocker now has limited bank support. Enable the appropriate options and Shopping List items will be pulled from or deposited into your bank. Also a few other handy features were added, such as auto-population of the Selling List.

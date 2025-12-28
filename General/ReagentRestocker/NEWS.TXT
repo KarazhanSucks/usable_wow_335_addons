@@ -1,0 +1,66 @@
+== Overview ==
+Reagent Restocker is a simple addon for automatically purchasing items, selling unwanted items, and repairing.
+
+Unlike many other similar addons, Reagent Restocker supports drag and drop and has a full GUI for editing buy/sell lists. Even though it may be more useful to some classes than others, Reagent Restocker works for all classes.
+
+This addon is of particular use to:
+
+* classes that use multiple reagents (Mages, Druids, etc.),
+* characters that like to have a stock of vials, flux, etc. on hand,
+* characters that always like to keep stocked on items like potions in their bank,
+* characters that do a lot of farming.
+* anybody who wants to keep a constant supply of some item buyable from a vendor.
+
+== News ==
+
+I have some plans for a 3.0 release, but it's unlikely to happen soon, due to a lack of time. I will continue to provide bug fixes for 2.x in the meantime. 2.3 will likely turn into a 2.4 instead of a 3.0, and will include a somewhat reduced memory footprint. 
+
+How much it will really be reduced when all is said and done I'm unsure of, but it should be a fair amount from the 2.2 series.
+
+Betas will be available at Curse only.
+
+Some of the planned changes include:
+
+* Reduced memory footprint. I made a change a long time ago that isolated RR from other addons, but it required copying a lot of stuff from "outside" to "inside." Lots of copying == more memory usage. I intend to change it to copy only one item (the pointer to the global environment). It'll require changing a lot of code, but should reduce memory usage.
+
+* Better integration with vendors. Right now, you have to pull up the configuration dialog to manage the lists. It's a large dialog box, which is a pain. Eventually, I plan on changing list management to be something that is totally separate from managing global options. It'll be something smaller that pops up next to the vendor, but can be bought up manually. I may even look into making some of the controls part of the vendor's own UI.
+
+* Less to no dependence on libraries. Moving to Ace3 was a nice change and opened up more options, but has its own limitations (like not being able to move the dialog to the same frame level as the bags). The only way to really make a good UI that makes sense for RR is to use Blizzard's UI directly.
+
+* Moving away from Ace3 will also reduce the memory footprint further. Ace3 adds a lot of overhead with little benefit. Blizzard's own controls aren't really that hard to use.
+
+* Get rid of a lot of cruft left over from moving away from Waterfall, and get rid of a lot of cruf left over from previous experiments with various things.
+
+* This will initially be released as alpha/beta quality, as it's gonna be a pretty big change, both internally and from a UI perspective.
+
+2.0 is out! Changes:
+
+* Waterfall stopped being supported, and didn't support features like Blizzard's addon tab. Moved to Ace3.
+* New, more WoW-like look and feel, thanks to Ace3.
+* New LDB option: Can use LDB text instead of LDB labels. Useful if your LDB plugin doens't support labels.
+* LDB support now defuaults to a single icon. You can still set it to track individual items in the options.
+* Lots of code changes under the hood to make future changes easier.
+
+Please report all bugs!
+
+== Usage ==
+To start using Reagent Restocker, type
+
+    /rr
+
+at the command line.
+
+/rrstock and /reagentrestocker also work.
+
+Raid Roll users: Reagent Restocker may take over /rr - if that happens, use /rrl for Raid Roll.
+
+/rrbuy and /rrsell add items to the sell and buy lists (thanks g3gg0)
+
+== NOTE ==
+The primary portal for Reagent Restocker is at curse.com, even though I also publish the addon to wowinterface.com (the old portal), and may publish to other places in the future.
+
+The public facing page is here:
+http://wow.curse.com/downloads/wow-addons/details/reagent_restocker.aspx
+
+The development pages are here:
+http://wow.curseforge.com/addons/reagent_restocker/

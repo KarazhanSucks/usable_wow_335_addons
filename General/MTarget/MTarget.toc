@@ -1,0 +1,23 @@
+## Interface: 30300
+## Title: MTarget
+## Notes: Target assistance by automatic rewriting of macros
+## Author: gameldar
+## Version: 2.1.7
+## SavedVariables: MTargetDB
+## X-Curse-Packaged-Version: v2.1.7
+## X-Curse-Project-Name: MTarget
+## X-Curse-Project-ID: mtarget
+## X-Curse-Repository-ID: wow/mtarget/mainline
+
+embeds.xml
+
+locales\MTarget-enUS.lua
+
+MTarget.lua
+MTarget_Broadcast.lua
+MTarget_Config.lua
+MTarget_Console.lua
+MTarget_Macro.lua
+MTarget_Menu.lua
+MTarget_PopupMenu.lua
+MTarget_RaidIcons.lua

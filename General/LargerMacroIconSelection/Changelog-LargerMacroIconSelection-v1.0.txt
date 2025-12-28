@@ -1,0 +1,67 @@
+------------------------------------------------------------------------
+r31 | xinhuan | 2008-10-14 19:06:32 +0000 (Tue, 14 Oct 2008) | 1 line
+Changed paths:
+   A /tags/v1.0 (from /trunk:30)
+
+Tag v1.0
+------------------------------------------------------------------------
+r30 | xinhuan | 2008-10-14 18:58:48 +0000 (Tue, 14 Oct 2008) | 1 line
+Changed paths:
+   M /trunk
+   M /trunk/LargerMacroIconSelection.lua
+   M /trunk/LargerMacroIconSelection.toc
+
+Remove tsvn:logtemplate. Update TOC to 30000.
+------------------------------------------------------------------------
+r29 | root | 2008-09-29 21:27:06 +0000 (Mon, 29 Sep 2008) | 1 line
+Changed paths:
+   A /trunk/.pkgmeta
+
+Facilitate WowAce-on-CurseForge transition
+------------------------------------------------------------------------
+r27 | root | 2008-09-29 20:58:16 +0000 (Mon, 29 Sep 2008) | 1 line
+Changed paths:
+   D /tmp/trunk/LargerMacroIconSelection
+   A /trunk (from /tmp/trunk/LargerMacroIconSelection:26)
+
+Importing old repo data under /trunk
+------------------------------------------------------------------------
+r26 | xinhuan | 2008-09-28 05:11:57 +0000 (Sun, 28 Sep 2008) | 1 line
+Changed paths:
+   M /tmp/trunk/LargerMacroIconSelection/LargerMacroIconSelection.toc
+
+LargerMacroIconSelection: Add X-Email to TOC.
+------------------------------------------------------------------------
+r23 | gnarfoz | 2008-06-07 20:07:03 +0000 (Sat, 07 Jun 2008) | 1 line
+Changed paths:
+   M /tmp/trunk/LargerMacroIconSelection/LargerMacroIconSelection.lua
+
+LargerMacroIconSelection: added deDE localisation =)
+------------------------------------------------------------------------
+r21 | xinhuan | 2008-03-25 19:34:58 +0000 (Tue, 25 Mar 2008) | 1 line
+Changed paths:
+   M /tmp/trunk/LargerMacroIconSelection/LargerMacroIconSelection.toc
+
+LargerMacroIconSelection: Update TOC to 20400
+------------------------------------------------------------------------
+r19 | xinhuan | 2007-12-28 14:35:48 +0000 (Fri, 28 Dec 2007) | 1 line
+Changed paths:
+   M /tmp/trunk/LargerMacroIconSelection/LargerMacroIconSelection.lua
+
+LargerMacroIconSelection: Add version number v1.0
+------------------------------------------------------------------------
+r18 | xinhuan | 2007-12-28 14:19:38 +0000 (Fri, 28 Dec 2007) | 1 line
+Changed paths:
+   M /tmp/trunk/LargerMacroIconSelection
+
+LargerMacroIconSelection: Add tsvn:logtemplate property
+------------------------------------------------------------------------
+r17 | xinhuan | 2007-12-28 14:16:28 +0000 (Fri, 28 Dec 2007) | 2 lines
+Changed paths:
+   A /tmp/trunk/LargerMacroIconSelection
+   A /tmp/trunk/LargerMacroIconSelection/LargerMacroIconSelection.lua
+   A /tmp/trunk/LargerMacroIconSelection/LargerMacroIconSelection.toc
+
+LargerMacroIconSelection: - Initial commit
+- Shows you a much bigger macro icon selection frame instead of the standard 5x4 one
+------------------------------------------------------------------------

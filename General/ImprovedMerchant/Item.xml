@@ -1,0 +1,165 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+	
+	<Frame name="ImprovedMerchantItemFrameTemplate" virtual="true" hidden="true">
+		<Size>
+			<AbsDimension x="32" y="32"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="$parentIcon">
+					<Size>
+						<AbsDimension x="16" y="16" />
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" />
+					</Anchors>
+				</Texture>
+				<FontString name="$parentValue" inherits="NumberFontNormalRight">
+					<Size>
+						<AbsDimension x="0" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT" relativeTo="$parentIcon" relativePoint="LEFT" />
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnter>
+				MerchantItemButton_OnEnter(self:GetParent(), motion);
+				self:GetParent():LockHighlight();
+				if(self.link) then
+					GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+					GameTooltip:SetHyperlink(self.link);
+					GameTooltip:Show();
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+				self:GetParent():UnlockHighlight();
+			</OnLeave>
+		</Scripts>
+	</Frame>
+	
+	<Button name="ImprovedMerchantItemInfoTemplate" virtual="true" hidden="true" enableMouse="true">
+		<Size>
+			<AbsDimension x="0" y="32"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="$parentTexture">
+					<Size>
+						<AbsDimension x="32" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" />
+					</Anchors>
+				</Texture>
+				<FontString name="$parentName" inherits="GameFontNormal" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="0" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentTexture" relativePoint="TOPRIGHT" />
+						<Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" />
+					</Anchors>
+				</FontString>
+				<FontString name="$parentCount" inherits="NumberFontNormal" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="0" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentTexture"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentStock" inherits="NumberFontNormalYellow" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="0" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentTexture"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentType" inherits="GameFontDisableSmall" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="0" y="16"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativeTo="$parentTexture" relativePoint="BOTTOMRIGHT" />
+						<Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" />
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentArenaFrame" inherits="ImprovedMerchantItemFrameTemplate" hidden="true">
+				<Size>
+					<AbsDimension x="68" y="16" />
+				</Size>
+			</Frame>
+			<Frame name="$parentHonorFrame" inherits="ImprovedMerchantItemFrameTemplate" hidden="true">
+				<Size>
+					<AbsDimension x="68" y="16" />
+				</Size>
+			</Frame>
+			<Frame name="$parentItemCost1Frame" inherits="ImprovedMerchantItemFrameTemplate" hidden="true">
+				<Size>
+					<AbsDimension x="34" y="16" />
+				</Size>
+			</Frame>
+			<Frame name="$parentItemCost2Frame" inherits="ImprovedMerchantItemFrameTemplate" hidden="true">
+				<Size>
+					<AbsDimension x="34" y="16" />
+				</Size>
+			</Frame>
+			<Frame name="$parentItemCost3Frame" inherits="ImprovedMerchantItemFrameTemplate" hidden="true">
+				<Size>
+					<AbsDimension x="34" y="16" />
+				</Size>
+			</Frame>
+			<Frame name="$parentMoneyFrame" inherits="SmallMoneyFrameTemplate" hidden="true">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" />
+				</Anchors>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnClick>
+				if ( IsModifiedClick() ) then
+					MerchantItemButton_OnModifiedClick(self, button);
+				else
+					MerchantItemButton_OnClick(self, button);
+				end
+			</OnClick>
+			<OnLoad>
+				MerchantItemButton_OnLoad(self);
+			</OnLoad>
+			<OnDragStart>
+				MerchantItemButton_OnClick(self, "LeftButton");
+			</OnDragStart>
+			<OnEnter>
+				MerchantItemButton_OnEnter(self, motion);
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+				ResetCursor();
+				MerchantFrame.itemHover = nil;
+			</OnLeave>
+			<OnHide>
+				if ( self.hasStackSplit == 1 ) then
+					StackSplitFrame:Hide();
+				end
+			</OnHide>
+		</Scripts>
+		<HighlightTexture name="$parentHighlight" file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD">
+
+			<Anchors>
+				<Anchor point="TOPLEFT" />
+				<Anchor point="BOTTOMRIGHT" />
+
+			</Anchors>
+			<TexCoords left="0" right="1.0" top="0" bottom="0.578125"/>
+		</HighlightTexture>
+
+	</Button>
+</Ui>

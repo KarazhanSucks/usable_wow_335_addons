@@ -1,0 +1,136 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+	
+	<ScrollFrame name="ImprovedMerchant" parent="MerchantFrame" inherits="UIPanelScrollFrameTemplate2">
+		<Size>
+			<AbsDimension x="299" y="295" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="MerchantFrame">
+				<Offset>
+					<AbsDimension x="16" y="-76" />
+				</Offset>
+			</Anchor>
+		</Anchors>
+		
+		<Scripts>
+			<OnLoad>
+				ImprovedMerchant_OnLoad(self);
+			</OnLoad>
+			<OnEvent>
+				ImprovedMerchant_OnEvent(self, event);	
+			</OnEvent>
+		</Scripts>
+		<ScrollChild>
+			<Frame name="$parentScrollChild" id="0">
+				<Size>
+					<AbsDimension x="299" y="0" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" />
+				</Anchors>
+			</Frame>
+		</ScrollChild>
+	</ScrollFrame>
+	
+	<CheckButton name="ImprovedMerchantAutoRepairCheckBox" parent="MerchantFrame" inherits="OptionsSmallCheckButtonTemplate">
+		<Anchors>
+			<Anchor point="BOTTOMLEFT">
+				<Offset>
+					<AbsDimension x="18" y="62" />
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnLoad>
+				_G[this:GetName().."Text"]:SetText(LAUTOREPAIR)
+			</OnLoad>
+			<OnClick>
+				AUTOREPAIR = this:GetChecked();
+			</OnClick>
+		</Scripts>
+	</CheckButton>
+	<Button name="ImprovedMerchantToggleFilter" parent="MerchantFrame">
+		<Size>
+			<AbsDimension x="16" y="16" />
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="64" y="-50" />
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnLoad>
+				this:SetNormalTexture("Interface\\MoneyFrame\\Arrow-Right-Up");
+				this:SetPushedTexture("Interface\\MoneyFrame\\Arrow-Right-Down");
+			</OnLoad>
+			<OnClick>
+				ImprovedMerchant_ToggleFilter(this, button);
+			</OnClick>
+		</Scripts>
+	</Button>
+	<Frame name="ImprovedMerchantFilter" hidden="true" parent="MerchantFrame">
+		<Size>
+			<AbsDimension x="0" y="40" />
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="ImprovedMerchantToggleFilter" relativePoint="RIGHT"/>
+			<Anchor point="RIGHT">
+				<Offset>
+					<AbsDimension x="-44" y="0" />
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Frames>
+			<Button name="ImprovedMerchantSortList" inherits="UIDropDownMenuTemplate">
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="-6" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<EditBox name="ImprovedMerchantSearchBox" autoFocus="false" inherits="InputBoxTemplate">
+				<Size>
+					<AbsDimension x="0" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="ImprovedMerchantSortListButton" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="8" y="0" />
+						</Offset>
+					</Anchor>
+					<Anchor point="RIGHT" />
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="$parentInfo" inherits="ChatFontSmall">
+							<Anchors>
+								<Anchor point="LEFT"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						ImprovedMerchantSearchBoxInfo:SetText(LSEARCH);
+					</OnLoad>
+					<OnEditFocusGained>
+						ImprovedMerchantSearchBox_OnEditFocusGained();
+					</OnEditFocusGained>
+					<OnEnterPressed>
+						ImprovedMerchantSearchBox_OnEnterPressed(this);
+					</OnEnterPressed>
+					<OnEscapePressed>
+						ImprovedMerchantSearchBox_OnEscapePressed(this);
+					</OnEscapePressed>
+					<OnChar>
+						ImprovedMerchantSearchBox_OnChar(this);
+					</OnChar>
+				</Scripts>
+			</EditBox>
+		</Frames>
+	</Frame>
+</Ui>

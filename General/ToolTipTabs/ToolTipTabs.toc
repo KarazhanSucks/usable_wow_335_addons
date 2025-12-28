@@ -1,0 +1,16 @@
+## Title: ToolTipTabs
+## Author: Neurox
+## Notes: Adds tabbed and multiple tooltip functionality to item link tooltips
+## Version: 1.4a
+## Interface: 30300
+## SavedVariables: ToolTipTabsDB
+## X-Curse-Packaged-Version: r13
+## X-Curse-Project-Name: ToolTipTabs
+## X-Curse-Project-ID: tooltiptabs
+## X-Curse-Repository-ID: wow/tooltiptabs/mainline
+
+libs.xml
+
+ToolTipTabs.lua
+ToolTipTabs.xml
+options.lua
