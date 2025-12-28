@@ -1,0 +1,15 @@
+## Interface: 40000
+## Title: UnderAchiever
+## Author: Aelixia (The Maelstrom EU)
+## Version: 4
+## Notes: Create fake achievement links.
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: UA_Settings,UA_Saves,UA_Replacements,UA_Exceptions_Disabled,UA_Exceptions_Enabled
+
+UnderAchiever.lua
+UA_Options.lua
+UA_Advanced.lua
+UA_Replacements.lua
+UA_Exceptions.lua
+UA_About.lua
